@@ -1,8 +1,18 @@
 [package]
-name = "tree-rs"
+name = "lstree"
 version = "0.1.0"
-edition = "2024"
+edition = "2021"
+description = "A modern, feature-rich directory tree visualizer inspired by ls and tree commands"
+authors = ["Your Name <your@email.com>"]
+license = "MIT"
+repository = "https://github.com/yourusername/lstree"
+readme = "README.md"
+keywords = ["cli", "tree", "directory", "ls", "filesystem", "visualizer"]
+categories = ["command-line-utilities", "filesystem"]
 
+[[bin]]
+name = "lstree"
+path = "src/main.rs"
 [dependencies]
 
 clap = { version = "4.5.53", features = ["derive"] }
