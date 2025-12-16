@@ -5,8 +5,8 @@ pub fn validate_path(path: &Path) -> Result<(), String> {
         return Err("path does not exist".to_string());
     }
     if !path.is_dir() {
-        return Err("directory dies not exist".to_string)
+        return Err("directory does not exist".to_string());
     }
-
-    ok(())
+    
+    Ok(())
 }

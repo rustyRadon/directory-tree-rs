@@ -1,15 +1,14 @@
 use std::fs;
 use std::path::Path;
 
-
 pub fn print_tree(
     path: &Path,
-    max_depth: usize,
-    only_file: &bool,
+    prefix: &str,
+    files_only: bool,
     current_depth: usize,
-
- ) {
-    //stop if current depth reached
+    max_depth: usize,
+) {
+    // Stop if current depth reached max depth
     if current_depth >= max_depth {
         return;
     }
@@ -19,21 +18,41 @@ pub fn print_tree(
         Err(_) => return,
     };
 
-    let entries: Vec<> = entries.filter_map(Result::Ok).collect();
+    let entries: Vec<_> = entries
+        .filter_map(|entry| entry.ok())
+        .collect();
 
-    for (i, entry) in entries.iter().ennumerate() {
-        let is_last = i == enteries.len() - 1;
-        let pointer_shape = if is_last {
-            "└──"
-        } else {"├──"};
+    for (i, entry) in entries.iter().enumerate() {
+        let is_last = i == entries.len() - 1;
+        let symbol = if is_last { "└── " } else { "├── " };
 
         let entry_path = entry.path();
-        let name = entry.file_name().to_string();
+        
+        // Store the file_name in a variable to extend its lifetime
+        let file_name = entry.file_name();
+        let name = file_name.to_string_lossy();
 
         if entry_path.is_dir() {
             if !files_only {
-                println!("{} {} {}", prefix, symbol, name)
+                println!("{}{}{}", prefix, symbol, name);
             }
+            
+            let new_prefix = if is_last {
+                format!("{}    ", prefix)
+            } else {
+                format!("{}│   ", prefix)
+            };
+
+            // Recurse deeper
+            print_tree(
+                &entry_path,
+                &new_prefix,
+                files_only,
+                current_depth + 1,
+                max_depth,
+            );
+        } else {
+            println!("{}{}{}", prefix, symbol, name);
         }
     }
 }
