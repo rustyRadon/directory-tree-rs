@@ -1,4 +1,4 @@
-// src/validator.rs
+
 use std::{io, path::Path};
 
 pub fn validate_path(path: &Path) -> io::Result<()> {
