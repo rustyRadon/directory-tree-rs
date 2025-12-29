@@ -1,4 +1,4 @@
-// src/scanner.rs
+
 use std::{fs, io, path::Path};
 
 use crate::args::Args;
@@ -33,7 +33,6 @@ fn walk_directory(
         })
         .collect();
 
-    // Sort entries: directories first, then files, alphabetically
     entries.sort_by(|(a, _), (b, _)| {
         let a_is_dir = a.path().is_dir();
         let b_is_dir = b.path().is_dir();
@@ -52,7 +51,7 @@ fn walk_directory(
         let entry_path = entry.path();
         let is_directory = entry_path.is_dir();
         
-        // Print based on flags
+        
         match (is_directory, args.only_files) {
             (true, true) => (), // Skip directories when --only-files is set
             _ => {
