@@ -53,7 +53,7 @@ fn walk_directory(
         
         
         match (is_directory, args.only_files) {
-            (true, true) => (), // Skip directories when --only-files is set
+            (true, true) => (),
             _ => {
                 println!("{}{}{}", prefix, connector, name);
                 if is_directory {
