@@ -24,7 +24,7 @@ fn walk_directory(
             let entry = entry.ok()?;
             let name = entry.file_name().to_string_lossy().into_owned();
             
-            // Skip hidden files unless --all flag is used
+            
             if !args.all && name.starts_with('.') {
                 return None;
             }
